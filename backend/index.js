@@ -1,52 +1,46 @@
-const express = require('express');
-const cors = require('cors');
-const connectDB = require('./db'); // MongoDB connection setup
+const express  = require('express');
+const cors     = require('cors');
+const connectDB = require('./db');
 const createUserRouter = require('./Routes/CreateUser');
 
-const app = express();
+const app  = express();
 const port = process.env.PORT || 5000;
 
-// List allowed origins (add your actual frontend URL here)
+/* ★ Add every frontend origin EXACTLY as the browser sends it */
 const allowedOrigins = [
-  'http://localhost:3000',               // Local development frontend
-  'https://hungry-hound-9x72-esuhoa0ua-adityapratapsingh10s-projects.vercel.app/',
-  'https://fluffy-jalebi-969ad2.netlify.app/'   // Replace with your actual Vercel frontend URL
+  'http://localhost:3000',
+  'https://hungry-hound-9x72-esuhoa0ua-adityapratapsingh10s-projects.vercel.app',
+  'https://fluffy-jalebi-969ad2.netlify.app'
 ];
 
-// Middleware for CORS
-app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like Postman or server-to-server)
-    if (!origin) return callback(null, true);
+/* ----------  CORS  ---------- */
+app.use(
+  cors({
+    origin(origin, callback) {
+      // allow Postman / server‑to‑server requests that have no Origin header
+      if (!origin) return callback(null, true);
 
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('CORS policy: This origin is not allowed.'));
-    }
-  },
-  methods: 'GET,POST,PUT,DELETE,OPTIONS',
-  allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept',
-  credentials: true,
-}));
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      console.error(`Blocked by CORS: ${origin}`);
+      return callback(new Error('CORS policy: This origin is not allowed.'));
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+    credentials: true
+  })
+);
 
-// Connect to MongoDB
+/* ----------  DB & routes  ---------- */
 connectDB();
-
-// Middleware
 app.use(express.json());
 
-// Routes
 app.use('/api/users', createUserRouter);
-app.use('/api/users', require("./Routes/DisplayData"));
-app.use('/api/users', require("./Routes/OrderData"));
+app.use('/api/users', require('./Routes/DisplayData'));
+app.use('/api/users', require('./Routes/OrderData'));
 
-// Basic route
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
+app.get('/', (_, res) => res.send('Hello World'));
 
-// Start server
-app.listen(port, () => {
-  console.log(`App is listening at http://localhost:${port}`);
-});
+/* ----------  Start server  ---------- */
+app.listen(port, () => console.log(`Server running on port ${port}`));
