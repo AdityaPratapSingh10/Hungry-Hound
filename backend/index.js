@@ -9,7 +9,6 @@ const port = process.env.PORT || 5000;
 /* ★ Add every frontend origin EXACTLY as the browser sends it */
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://hungry-hound-9x72-esuhoa0ua-adityapratapsingh10s-projects.vercel.app',
   'https://hungry-hound.netlify.app'
 ];
 
