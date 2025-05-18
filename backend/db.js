@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
+const dotenv=require('dotenv');
+
+dotenv.config();
 
 // MongoDB connection URI
-const mongoURI = 'mongodb://adityasingh9554575339:Aditya10@ac-v2q571h-shard-00-00.qtcqoub.mongodb.net:27017,ac-v2q571h-shard-00-01.qtcqoub.mongodb.net:27017,ac-v2q571h-shard-00-02.qtcqoub.mongodb.net:27017/gofoodmern?ssl=true&replicaSet=atlas-ihh33n-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0';
+const mongoURI ='mongodb://adityasingh9554575339:Aditya10@ac-v2q571h-shard-00-00.qtcqoub.mongodb.net:27017,ac-v2q571h-shard-00-01.qtcqoub.mongodb.net:27017,ac-v2q571h-shard-00-02.qtcqoub.mongodb.net:27017/gofoodmern?ssl=true&replicaSet=atlas-ihh33n-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0';
 
 const connectDB = async () => {
   try {
