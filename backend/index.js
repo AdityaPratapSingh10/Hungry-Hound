@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 const allowedOrigins = [
   'http://localhost:3000',
   'https://hungry-hound-9x72-esuhoa0ua-adityapratapsingh10s-projects.vercel.app',
-  'https://fluffy-jalebi-969ad2.netlify.app'
+  'https://hungry-hound.netlify.app'
 ];
 
 /* ----------  CORS  ---------- */
