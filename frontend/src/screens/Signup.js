@@ -13,7 +13,7 @@ export default function Signup() {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/createuser", {
+      const response = await fetch("https://hungry-hound-4.onrender.com/api/users/createuser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
